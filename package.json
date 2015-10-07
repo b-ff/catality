@@ -1,0 +1,31 @@
+{
+  "name": "CatO",
+  "version": "0.0.1",
+  "description": "GitHub based CMS",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/b-ff/cato.git"
+  },
+  "keywords": [
+    "github",
+    "pages",
+    "angularjs",
+    "singlepage",
+    "cms"
+  ],
+  "author": "Vyacheslav Biryukov <networmx128bit@gmail.com>",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/b-ff/cato/issues"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "bower": "~1.5.3",
+    "gulp": "~3.9.0"
+  }
+}
