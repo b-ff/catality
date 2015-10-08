@@ -22,10 +22,14 @@
   "bugs": {
     "url": "https://github.com/b-ff/cato/issues"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "bower": "~1.5.3",
-    "gulp": "~3.9.0"
+    "gulp": "~3.9.0",
+    "gulp-less": "~3.0.3",
+    "gulp-minify-css": "~1.2.1",
+    "del": "~2.0.2",
+    "gulp-watch": "~4.3.5",
+    "gulp-notify": "~2.2.0"
   }
 }
