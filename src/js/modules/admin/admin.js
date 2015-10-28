@@ -20,7 +20,8 @@
             })
     }
 
-    angular.module('cato.admin', ['ngRoute'])
+    angular.module('cato.admin', ['ngRoute', 'cato.global'])
         .config(['$routeProvider', config]);
+
 
 })();

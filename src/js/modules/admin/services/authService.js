@@ -6,9 +6,9 @@
  * 08.10.15
  */
 
-angular.module('cato.admin').factory('authService', ['$resource', 'base64Service', authService]);
+angular.module('cato.admin').factory('authService', ['$http', '$resource', 'base64Service', authService]);
 
-function authService($resource, base64Service) {
+function authService($http, $resource, base64Service) {
     var service = {};
 
     service.resource = $resource('https://api.github.com', {}, {
@@ -20,6 +20,8 @@ function authService($resource, base64Service) {
     };
 
     service.logIn = function() {
+        $http.defaults.headers.common['Authorization'] = 'Basic ' + 'email:password';
+
         window.localStorage.authData = {
             login: '',
             password: ''
