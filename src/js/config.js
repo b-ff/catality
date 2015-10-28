@@ -6,21 +6,21 @@
  * 08.10.15
  */
 
-(function() {
+(function () {
 
-    function config($routeProvider) {
-        $routeProvider
+	function config($routeProvider) {
+		$routeProvider
 
-            //.when('/', {
-            //    controller: 'clientController as clientCtrl',
-            //    templateUrl: '/src/views/main.html'
-            //})
+			//.when('/', {
+			//    controller: 'clientController as clientCtrl',
+			//    templateUrl: '/src/views/main.html'
+			//})
 
-            .otherwise({
-                redirectTo: '/admin/'
-            });
-    }
+			.otherwise({
+				redirectTo: '/admin/'
+			});
+	}
 
-    angular.module('cato').config(['$routeProvider', config]);
+	angular.module('cato').config(['$routeProvider', config]);
 
 })();

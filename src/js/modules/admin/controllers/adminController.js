@@ -9,14 +9,14 @@
 angular.module('cato.admin').controller('adminController', ['$location', 'authService', adminController]);
 
 function adminController($location, authService) {
-    var thisCtrl = this;
+	var thisCtrl = this;
 
-    thisCtrl.login = '';
-    thisCtrl.password = '';
+	thisCtrl.login = '';
+	thisCtrl.password = '';
 
-    console.log($location.path());
+	console.log($location.path());
 
-    if (!authService.isAuthorized() && $location.path() != '/admin/login') {
-        $location.path('/admin/login');
-    }
+	if (!authService.isAuthorized() && $location.path() != '/admin/login') {
+		$location.path('/admin/login');
+	}
 }

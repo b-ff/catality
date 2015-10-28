@@ -9,28 +9,28 @@
 angular.module('cato.admin').factory('authService', ['$http', '$resource', 'base64Service', authService]);
 
 function authService($http, $resource, base64Service) {
-    var service = {};
+	var service = {};
 
-    service.resource = $resource('https://api.github.com', {}, {
-        'authenticate': { method: 'GET'}
-    });
+	service.resource = $resource('https://api.github.com', {}, {
+		'authenticate': {method: 'GET'}
+	});
 
-    service.isAuthorized = function() {
-        return typeof window.localStorage.authData != "undefined";
-    };
+	service.isAuthorized = function () {
+		return typeof window.localStorage.authData != "undefined";
+	};
 
-    service.logIn = function() {
-        $http.defaults.headers.common['Authorization'] = 'Basic ' + 'email:password';
+	service.logIn = function () {
+		$http.defaults.headers.common['Authorization'] = 'Basic ' + 'email:password';
 
-        window.localStorage.authData = {
-            login: '',
-            password: ''
-        }
-    };
+		window.localStorage.authData = {
+			login   : '',
+			password: ''
+		}
+	};
 
-    service.logOut = function() {
-        delete window.localStorage.authData;
-    };
+	service.logOut = function () {
+		delete window.localStorage.authData;
+	};
 
-    return service;
+	return service;
 }

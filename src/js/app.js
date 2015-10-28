@@ -8,13 +8,13 @@
 
 angular.module('cato', [
 
-    // angular components
+	// angular components
 
-    'ngRoute',
-    'ngResource',
+	'ngRoute',
+	'ngResource',
 
-    // modules
+	// modules
 
-    'cato.admin'
+	'cato.admin'
 
 ]);
