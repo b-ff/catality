@@ -1,0 +1,19 @@
+.container-fluid
+	.col-lg-12.col-md-12.col-sm-12.col-xs-12
+		.header
+			h3 Two-Factor Authentication
+
+		hr
+
+		.content
+			form#two-factor-auth(ng-submit="tfCtrl.send()")
+				.form-group
+					input.form-control(type="text" name="code" placeholder="Enter security code..." id="code" ng-model="tfCtrl.code")
+
+				.form-group
+					button.btn.btn-md.btn-success(type="submit") Send
+					button.btn.btn-md.btn-default(type="buttin" ng-click="tfCtrl.cancel()") Cancel
+
+					span.pull-right
+						a.restore-auth-data(href="https://github.com/settings/two_factor_authentication/configure" target="_blank")
+							| Configure Two-Factor Authentication

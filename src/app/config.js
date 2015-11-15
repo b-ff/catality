@@ -13,11 +13,11 @@
 
 			//.when('/', {
 			//    controller: 'clientController as clientCtrl',
-			//    templateUrl: '/src/views/main.html'
+			//    templateUrl: '/src/views/main.jade'
 			//})
 
 			.otherwise({
-				redirectTo: '/admin/'
+				redirectTo: '/admin/login'
 			});
 	}
 

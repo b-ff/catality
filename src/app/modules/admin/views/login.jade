@@ -1,0 +1,46 @@
+div.container
+
+	h1 Administrative panel
+
+	hr
+
+	.col-lg-4.col-md-3.col-sm-2.col-xs-1
+	.col-lg-4.col-md-6.col-sm-8.col-xs-10
+		p.text-center Authorize with your GitHub account to continue
+
+		br
+
+		form#auth(ng-submit="loginCtrl.auth()")
+			uib-tabset
+				uib-tab(active="loginCtrl.isLPAuth")
+					uib-tab-heading
+						| Login/Password
+
+					br
+
+					.form-group
+						input.form-control(type="text" name="login" placeholder="GitHub Login" id="login" ng-model="loginCtrl.login")
+					.form-group
+						input.form-control(type="password" name="password" placeholder="Password" id="password" ng-model="loginCtrl.password")
+
+				uib-tab(active="loginCtrl.isTokenAuth")
+					uib-tab-heading
+						| Access Token
+
+					br
+
+					.form-group
+						input.form-control(type="text" name="token" placeholder="GitHub Access Token" id="token" ng-model="loginCtrl.token")
+
+			.checkbox
+				label
+					input(type="checkbox" name="remember" id="remember")
+					| Remember me
+				span.pull-right
+					a.restore-auth-data(ng-show="loginCtrl.isLPAuth" href="https://github.com/password_reset" target="_blank") Forgot password?
+					a.restore-auth-data(ng-show="loginCtrl.isTokenAuth" href="https://github.com/settings/tokens" target="_blank") Create new token
+			.form-group
+				button.btn.btn-lg.btn-success(type="submit" ng-disabled="(loginCtrl.login || loginCtrl.password) && loginCtrl.token") Log In
+				button.btn.btn-lg.btn-success(type="button" ng-click="loginCtrl.twoFactorAuth()") Two-Factor Auth
+
+	.col-lg-4.col-md-3.col-sm-2.col-xs-1
