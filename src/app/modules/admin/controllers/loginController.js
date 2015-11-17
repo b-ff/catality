@@ -6,9 +6,9 @@
  * 15.11.15
  */
 
-angular.module('cato.admin').controller('loginController', ['$uibModal', loginController]);
+angular.module('cato.admin').controller('loginController', ['$uibModal', 'authService', loginController]);
 
-function loginController($uibModal) {
+function loginController($uibModal, authService) {
 	var thisCtrl = this;
 
 	thisCtrl.login = '';
@@ -21,18 +21,36 @@ function loginController($uibModal) {
 	thisCtrl.isLPAuth = true;
 	thisCtrl.isTokenAuth = false;
 
+	thisCtrl.passFieldType = 'password';
+
 	thisCtrl.authMethod = authMethod;
 	thisCtrl.auth = auth;
 	thisCtrl.twoFactorAuth = twoFactorAuth;
+	thisCtrl.togglePassField = togglePassField;
+
+	function togglePassField() {
+		thisCtrl.passFieldType = (thisCtrl.passFieldType == 'password') ? 'text' : 'password';
+	}
 
 	function authMethod() {
-		var thisCtrl = this;
-
 		return (thisCtrl.isLPAuth && !thisCtrl.isTokenAuth) ? 'lp' : 'token';
 	}
 
 	function auth() {
-		console.log('Auth!');
+		var auth;
+
+		authService
+			.auth(thisCtrl.login, thisCtrl.password)
+			.then(function (response) {
+				console.log(response);
+				alert('Logged In!');
+			}, function (err) {
+				if (authService.isTwoFactorRequired()) {
+					thisCtrl.twoFactorAuth();
+				}
+
+				console.log(err);
+			});
 	}
 
 	function twoFactorAuth() {

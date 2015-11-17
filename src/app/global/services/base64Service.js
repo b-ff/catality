@@ -9,9 +9,8 @@
 angular.module('cato.global').factory('base64Service', [base64Service]);
 
 function base64Service() {
-	var service = {};
-
-	_keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+	var service = {},
+		_keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 
 	service.encode = function (input) {
 		var output = "";
@@ -38,8 +37,8 @@ function base64Service() {
 			}
 
 			output = output +
-				this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) +
-				this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
+				_keyStr.charAt(enc1) + _keyStr.charAt(enc2) +
+				_keyStr.charAt(enc3) + _keyStr.charAt(enc4);
 
 		}
 
@@ -56,10 +55,10 @@ function base64Service() {
 
 		while (i < input.length) {
 
-			enc1 = this._keyStr.indexOf(input.charAt(i++));
-			enc2 = this._keyStr.indexOf(input.charAt(i++));
-			enc3 = this._keyStr.indexOf(input.charAt(i++));
-			enc4 = this._keyStr.indexOf(input.charAt(i++));
+			enc1 = _keyStr.indexOf(input.charAt(i++));
+			enc2 = _keyStr.indexOf(input.charAt(i++));
+			enc3 = _keyStr.indexOf(input.charAt(i++));
+			enc4 = _keyStr.indexOf(input.charAt(i++));
 
 			chr1 = (enc1 << 2) | (enc2 >> 4);
 			chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);

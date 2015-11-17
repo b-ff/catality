@@ -21,7 +21,9 @@ div.container
 					.form-group
 						input.form-control(type="text" name="login" placeholder="GitHub Login" id="login" ng-model="loginCtrl.login")
 					.form-group
-						input.form-control(type="password" name="password" placeholder="Password" id="password" ng-model="loginCtrl.password")
+						.input-group
+							input.form-control(type="{{ loginCtrl.passFieldType }}" name="password" placeholder="Password" id="password" ng-model="loginCtrl.password")
+							.input-group-addon(ng-click="loginCtrl.togglePassField()") Show
 
 				uib-tab(active="loginCtrl.isTokenAuth")
 					uib-tab-heading
@@ -30,7 +32,11 @@ div.container
 					br
 
 					.form-group
-						input.form-control(type="text" name="token" placeholder="GitHub Access Token" id="token" ng-model="loginCtrl.token")
+						input.form-control(type="text" name="login" placeholder="GitHub Login" id="login" ng-model="loginCtrl.login")
+					.form-group
+						.input-group
+							input.form-control(type="{{ loginCtrl.passFieldType }}" name="token" placeholder="GitHub Access Token" id="token" ng-model="loginCtrl.token")
+							.input-group-addon(ng-click="loginCtrl.togglePassField()") Show
 
 			.checkbox
 				label
