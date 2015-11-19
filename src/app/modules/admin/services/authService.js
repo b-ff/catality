@@ -16,8 +16,13 @@ function authService($http, $resource, base64Service) {
 		__twoFactorRequired = false,
 		__accountData = null;
 
-	service.resource = $resource('https://api.github.com/user', {}, {
+	service.resource = $resource('https://api.github.com/', {}, {
 		'authenticate': {
+			url   : 'https://api.github.com/authorizations',
+			method: 'POST'
+		},
+		'getProfile'  : {
+			url: 'https://api.github.com/user',
 			method: 'GET'
 		}
 	});
@@ -34,13 +39,22 @@ function authService($http, $resource, base64Service) {
 		return __twoFactorRequired;
 	};
 
-	service.auth = function (login, password) {
+	service.setAuthData = function (login, password) {
 		__login = login;
 		__pass = password;
 
-		console.log(__login, __pass, service.getEncodedAuthData());
-
 		$http.defaults.headers.common['Authorization'] = 'Basic ' + service.getEncodedAuthData();
+	};
+
+	service.resetAuthData = function () {
+		__login = '';
+		__pass = '';
+		__twoFactorRequired = false;
+		delete $http.defaults.headers.common['Authorization'];
+	};
+
+	service.auth = function (login, password) {
+		service.setAuthData(login, password);
 
 		var promise = service.resource.authenticate().$promise;
 
@@ -56,21 +70,35 @@ function authService($http, $resource, base64Service) {
 				if (headers['x-github-otp']) {
 					if (headers['x-github-otp'].match(/^required\;/i)) {
 						__twoFactorRequired = true;
-
 						return;
 					}
 				}
 			}
 
-			service.login = '';
-			service.pass = '';
-			delete $http.defaults.headers.common['Authorization'];
+			service.resetAuthData();
+		});
+
+		return promise;
+	};
+
+	service.sendTwoFactorAuth = function (TFAcode) {
+		$http.defaults.headers.common['X-GitHub-OTP'] = TFAcode;
+
+		var promise = service.resource.getProfile().$promise;
+
+		promise.then(function (response) {
+			__accountData = response;
+			__isLogged = true;
+			console.log(response);
+		}, function (err) {
+			console.log(err);
 		});
 
 		return promise;
 	};
 
 	service.logOut = function () {
+		service.resetAuthData();
 		__isLogged = false;
 		__accountData = null;
 	};

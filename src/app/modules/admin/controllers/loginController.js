@@ -6,9 +6,9 @@
  * 15.11.15
  */
 
-angular.module('cato.admin').controller('loginController', ['$uibModal', 'authService', loginController]);
+angular.module('cato.admin').controller('loginController', ['$location', '$uibModal', 'authService', loginController]);
 
-function loginController($uibModal, authService) {
+function loginController($location, $uibModal, authService) {
 	var thisCtrl = this;
 
 	thisCtrl.login = '';
@@ -23,10 +23,30 @@ function loginController($uibModal, authService) {
 
 	thisCtrl.passFieldType = 'password';
 
+	thisCtrl.errors = [];
+
+	thisCtrl.setError = setError;
+	thisCtrl.resetErrors = resetErrors;
+
 	thisCtrl.authMethod = authMethod;
 	thisCtrl.auth = auth;
 	thisCtrl.twoFactorAuth = twoFactorAuth;
 	thisCtrl.togglePassField = togglePassField;
+	thisCtrl.authCheck = authCheck;
+
+	function setError(err) {
+		thisCtrl.errors.push(err);
+	}
+
+	function resetErrors() {
+		thisCtrl.errors = [];
+	}
+
+	function authCheck() {
+		if (authService.isAuthorized()) {
+			$location.path('/admin/');
+		}
+	}
 
 	function togglePassField() {
 		thisCtrl.passFieldType = (thisCtrl.passFieldType == 'password') ? 'text' : 'password';
@@ -37,18 +57,19 @@ function loginController($uibModal, authService) {
 	}
 
 	function auth() {
-		var auth;
+		thisCtrl.resetErrors();
 
 		authService
 			.auth(thisCtrl.login, thisCtrl.password)
-			.then(function (response) {
-				console.log(response);
-				alert('Logged In!');
+			.then(function () {
+				thisCtrl.authCheck();
 			}, function (err) {
 				if (authService.isTwoFactorRequired()) {
 					thisCtrl.twoFactorAuth();
+					return;
 				}
 
+				thisCtrl.setError(err.data);
 				console.log(err);
 			});
 	}
@@ -63,6 +84,7 @@ function loginController($uibModal, authService) {
 		});
 
 		modalInstance.result.then(function (result) {
+			thisCtrl.authCheck();
 			console.log('2Factor Auth Submit!', result);
 		}, function (result) {
 			console.log('2Factor Auth Canceled!', result);

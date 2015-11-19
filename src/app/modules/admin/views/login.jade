@@ -10,6 +10,12 @@ div.container
 
 		br
 
+		.alert.alert-danger(role="alert" ng-repeat="error in loginCtrl.errors")
+			strong(ng-if="error.message") {{ error.message }}
+			br
+			| See GitHub API docs:&nbsp;
+			a(ng-if="error.documentation_url" ng-href="error.documentation_url") {{ error.documentation_url }}
+
 		form#auth(ng-submit="loginCtrl.auth()")
 			uib-tabset
 				uib-tab(active="loginCtrl.isLPAuth")
