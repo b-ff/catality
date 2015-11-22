@@ -8,7 +8,9 @@ var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	webserver = require('gulp-webserver'),
 	minifyCSS = require('gulp-minify-css'),
+	gettext = require('gulp-angular-gettext'),
 	angularFilesort = require('gulp-angular-filesort');
+
 
 /**
  *  CLEANING TASKS
@@ -43,7 +45,7 @@ gulp.task('dist:css:vendor', ['clean'], function () {
 });
 
 // Common task for vendor files
-gulp.task('dist:vendor', ['dist:js:vendor', 'dist:css:vendor']);
+gulp.task('dist:vendor', ['dist:js:vendor', 'dist:css:vendor', 'dist:fonts:vendor']);
 
 // Move all vendor js into a single file vendor.min.app
 gulp.task('dist:js:vendor:min', ['dist:js:vendor'], function () {
@@ -63,9 +65,31 @@ gulp.task('dist:css:vendor:min', ['dist:css:vendor'], function () {
 });
 
 // Common task for vendor:min, removes separated vendor files
-gulp.task('dist:vendor:min', ['dist:js:vendor:min', 'dist:css:vendor:min'], function () {
+gulp.task('dist:vendor:min', ['dist:js:vendor:min', 'dist:css:vendor:min', 'dist:fonts:vendor:min'], function () {
 	return gulp.src(['./dist/vendor/js', './dist/vendor/css'])
 		.pipe(clean({force: true}));
+});
+
+gulp.task('dist:fonts:vendor', ['clean'], function () {
+	return gulp.src([
+		'./bower_components/**/*.woff',
+		'./bower_components/**/*.woff2',
+		'./bower_components/**/*.eot',
+		'./bower_components/**/*.ttf',
+		'./bower_components/**/*.svg'
+	])
+		.pipe(gulp.dest('./dist/vendor/css/'));
+});
+
+gulp.task('dist:fonts:vendor:min', ['clean'], function () {
+	return gulp.src([
+		'./bower_components/**/*.woff',
+		'./bower_components/**/*.woff2',
+		'./bower_components/**/*.eot',
+		'./bower_components/**/*.ttf',
+		'./bower_components/**/*.svg'
+	])
+		.pipe(gulp.dest('./dist/vendor/'));
 });
 
 /**
@@ -122,8 +146,29 @@ gulp.task('dist:templates', ['clean'], function () {
 		.pipe(gulp.dest('./dist/'));
 });
 
-gulp.task('dist', ['dist:vendor', 'dist:css:app', 'dist:js:app', 'dist:jade', 'dist:templates']);
-gulp.task('dist:min', ['dist:vendor:min', 'dist:css:app:min', 'dist:js:app:min', 'dist:jade:min', 'dist:templates']);
+gulp.task('dist', ['dist:vendor', 'dist:css:app', 'translations:json', 'dist:js:app', 'dist:jade', 'dist:templates']);
+gulp.task('dist:min', ['dist:vendor:min', 'dist:css:app:min', 'translations:json', 'dist:js:app:min', 'dist:jade:min', 'dist:templates']);
+
+/**
+ *  TRANSLATIONS
+ */
+
+gulp.task('translations:pot', ['dist:jade'], function () {
+	return gulp.src(['./dist/app/**/*.html', './dist/app/**/*.js'])
+		.pipe(gettext.extract('i18n.pot', {
+			// options to pass to angular-gettext-tools...
+		}))
+		.pipe(gulp.dest('./src/app/translations/'));
+});
+
+gulp.task('translations:json', ['dist:jade'], function () {
+	return gulp.src('./src/app/translations/**/*.po')
+		.pipe(gettext.compile({
+			// options to pass to angular-gettext-tools...
+			format: 'json'
+		}))
+		.pipe(gulp.dest('./dist/app/translations/'));
+});
 
 /**
  *  INJECT
@@ -142,7 +187,7 @@ gulp.task('inject', ['dist'], function () {
 
 	//vendorJS = es.merge(jquery, vendorJS);
 
-	var appJS = gulp.src('./dist/app/**/*.js')
+	var appJS = gulp.src(['./dist/app/**/*.js'])
 		.pipe(angularFilesort());
 
 	return gulp.src('./dist/index.html')
@@ -176,7 +221,7 @@ gulp.task('inject:min', ['dist:min'], function () {
 		.pipe(gulp.dest('./dist/'));
 });
 
-gulp.task('make', ['clean', 'dist', 'inject']);
+gulp.task('make', ['clean', 'dist', 'translations:pot', 'inject']);
 
 gulp.task('make:min', ['clean', 'dist:min', 'inject:min']);
 
@@ -197,6 +242,7 @@ gulp.task('build', ['make:min'], function () {
 });
 
 gulp.task('serve', ['make'], function () {
+	gulp.watch('./src/app/**/*.po', ['make']);
 	gulp.watch('./src/app/**/*.js', ['make']);
 	gulp.watch('./src/app/**/*.jade', ['make']);
 	gulp.watch('./src/app/**/*.styl', ['make']);

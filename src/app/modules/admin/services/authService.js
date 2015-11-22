@@ -11,10 +11,19 @@ angular.module('cato.admin').factory('authService', ['$http', '$resource', 'base
 function authService($http, $resource, base64Service) {
 	var service = {},
 		__isLogged = false,
+		__isRemebered = false,
 		__login = '',
 		__pass = '',
 		__twoFactorRequired = false,
-		__accountData = null;
+		__shouldRemember = false,
+		__accountData = window.localStorage.getItem('catac');
+
+	if (__accountData) {
+		__accountData = JSON.parse(__accountData);
+
+		__login = __accountData['1'];
+		__pass = __accountData['2'];
+	}
 
 	service.resource = $resource('https://api.github.com/', {}, {
 		'authenticate': {
@@ -35,6 +44,10 @@ function authService($http, $resource, base64Service) {
 		return __isLogged;
 	};
 
+	service.isRemembered = function () {
+		return __isRemebered;
+	}
+
 	service.isTwoFactorRequired = function () {
 		return __twoFactorRequired;
 	};
@@ -50,17 +63,23 @@ function authService($http, $resource, base64Service) {
 		__login = '';
 		__pass = '';
 		__twoFactorRequired = false;
+		__shouldRemember = false;
+		__isRemebered = false;
+		window.localStorage.clear('catac');
 		delete $http.defaults.headers.common['Authorization'];
 	};
 
-	service.auth = function (login, password) {
+	service.auth = function (login, password, shouldRemember) {
 		service.setAuthData(login, password);
 
 		var promise = service.resource.authenticate().$promise;
 
+		if (shouldRemember) {
+			__shouldRemember = true;
+		}
+
 		promise.then(function (response) {
-			__isLogged = true;
-			__accountData = response;
+			__setLogged();
 		}, function (err) {
 			var headers = err.headers();
 
@@ -87,8 +106,7 @@ function authService($http, $resource, base64Service) {
 		var promise = service.resource.getProfile().$promise;
 
 		promise.then(function (response) {
-			__accountData = response;
-			__isLogged = true;
+			__setLogged(response);
 			console.log(response);
 		}, function (err) {
 			console.log(err);
@@ -102,6 +120,27 @@ function authService($http, $resource, base64Service) {
 		__isLogged = false;
 		__accountData = null;
 	};
+
+	function __setLogged(profileData) {
+		__isLogged = true;
+
+		if (!profileData) {
+			service.resource.getProfile().$promise.then(function (profile) {
+				__accountData = profile;
+			}, function (err) {
+				console.log(err);
+			});
+		}
+
+		if (__shouldRemember) {
+			var accData = {
+				'1': __login,
+				'2': __pass
+			};
+
+			window.localStorage.setItem('catac', JSON.stringify(accData));
+		}
+	}
 
 	return service;
 }

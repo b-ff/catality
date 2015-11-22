@@ -13,6 +13,7 @@ angular.module('cato', [
 	'ngRoute',
 	'ngResource',
 	'ui.bootstrap',
+	'gettext',
 
 	// modules
 

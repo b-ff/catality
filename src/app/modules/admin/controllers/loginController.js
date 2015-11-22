@@ -23,6 +23,8 @@ function loginController($location, $uibModal, authService) {
 
 	thisCtrl.passFieldType = 'password';
 
+	thisCtrl.isRemembered = authService.isRemembered();
+
 	thisCtrl.errors = [];
 
 	thisCtrl.setError = setError;
@@ -33,6 +35,8 @@ function loginController($location, $uibModal, authService) {
 	thisCtrl.twoFactorAuth = twoFactorAuth;
 	thisCtrl.togglePassField = togglePassField;
 	thisCtrl.authCheck = authCheck;
+
+	authCheck();
 
 	function setError(err) {
 		thisCtrl.errors.push(err);
@@ -60,7 +64,7 @@ function loginController($location, $uibModal, authService) {
 		thisCtrl.resetErrors();
 
 		authService
-			.auth(thisCtrl.login, thisCtrl.password)
+			.auth(thisCtrl.login, thisCtrl.password, thisCtrl.remember)
 			.then(function () {
 				thisCtrl.authCheck();
 			}, function (err) {

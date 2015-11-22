@@ -1,0 +1,116 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.6\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: modules/admin/views/login.html:25
+msgid "Access Token"
+msgstr "Токен доступа"
+
+#: modules/admin/views/login.html:3 modules/admin/views/main.html:3
+msgid "Administrative panel"
+msgstr "Административная панель"
+
+#: modules/admin/views/login.html:46
+msgid "Authorization with Access Token is more preferred cause:"
+msgstr "Авторизация с использованием токена предпочтительнее потому-что:"
+
+#: modules/admin/views/login.html:8
+msgid "Authorize with your GitHub account to continue"
+msgstr "Авторизуйтесь, используя свой аккаунт GitHub, чтобы продолжить"
+
+#: modules/admin/views/twoFactorAuthForm.html:16
+msgid "Cancel"
+msgstr "Отменить"
+
+#: modules/admin/views/twoFactorAuthForm.html:16
+msgid "Configure Two-Factor Authentication"
+msgstr "Настроить двухфакторную аутентификацию"
+
+#: modules/admin/views/login.html:40
+msgid "Create new token"
+msgstr "Создать новый токен"
+
+#: modules/admin/views/twoFactorAuthForm.html:12
+msgid "Enter security code..."
+msgstr "Введите код подтверждения…"
+
+#: modules/admin/views/login.html:40
+msgid "Forgot password?"
+msgstr "Забыли пароль?"
+
+#: modules/admin/views/login.html:31
+msgid "GitHub Access Token"
+msgstr "Токен доступа Github"
+
+#: modules/admin/views/login.html:15 modules/admin/views/login.html:27
+msgid "GitHub Login"
+msgstr "Логин GitHub"
+
+#: modules/admin/views/login.html:59
+msgid "Hi! Seems like we met before!"
+msgstr "Привет! Мы кажется уже встречались!"
+
+#: modules/admin/views/login.html:60
+msgid "Hold on a second, i'll check it..."
+msgstr "Подожди секунду, я проверю…"
+
+#: modules/admin/views/login.html:51
+msgid "In case of security leak you can revoke compromised token"
+msgstr ""
+"В случае утечки данных авторизации вы можете заблокировать "
+"скомпрометированный токен"
+
+#: modules/admin/views/login.html:49
+msgid "It's faster"
+msgstr "Это быстрее"
+
+#: modules/admin/views/login.html:43
+msgid "Log In"
+msgstr "Войти"
+
+#: modules/admin/views/login.html:13
+msgid "Login/Password"
+msgstr "Логин/Пароль"
+
+#: modules/admin/views/login.html:19
+msgid "Password"
+msgstr "Пароль"
+
+#: modules/admin/views/login.html:39
+msgid "Remember me"
+msgstr "Запомнить меня"
+
+#: modules/admin/views/twoFactorAuthForm.html:8
+msgid "See GitHub API docs:&nbsp;"
+msgstr "См. документацию GitHub:&nbsp;"
+
+#: modules/admin/views/twoFactorAuthForm.html:15
+msgid "Send"
+msgstr "Отправить"
+
+#: modules/admin/views/login.html:50
+msgid "There's no need to use phone or app"
+msgstr "Не нужно использовать телефон или дополнительные приложения"
+
+#: modules/admin/views/twoFactorAuthForm.html:5
+msgid "Two-Factor Authentication"
+msgstr "Двухфакторная аутентификация"
+
+#: modules/admin/views/login.html:45
+msgid "Use this method for the first-time or single auth"
+msgstr ""
+"Используйте этот способ только для первичной или одноразовой авторизации"
+
+#~ msgid "Ok, hold on a second, i'm check something..."
+#~ msgstr "Ок, подожди секунду, я проверю"

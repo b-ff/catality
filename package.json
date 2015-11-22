@@ -41,6 +41,7 @@
     "event-stream": "~3.3.2",
     "tiny-lr": "~0.2.1",
     "gulp-livereload": "~3.8.1",
-    "gulp-webserver": "~0.9.1"
+    "gulp-webserver": "~0.9.1",
+    "gulp-angular-gettext": "~2.1.0"
   }
 }
