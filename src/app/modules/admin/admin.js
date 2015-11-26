@@ -18,6 +18,10 @@
 				controller : 'loginController as loginCtrl',
 				templateUrl: '../../app/modules/admin/views/login.html'
 			})
+			.when('/admin/setup', {
+				controller : 'setupController as setupCtrl',
+				templateUrl: '../../app/modules/admin/views/setup.html'
+			})
 	}
 
 	angular.module('cato.admin', ['ngRoute', 'cato.global'])

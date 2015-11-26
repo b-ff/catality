@@ -23,6 +23,8 @@ function authService($http, $resource, base64Service) {
 
 		__login = __accountData['1'];
 		__pass = __accountData['2'];
+
+		__isLogged = true;
 	}
 
 	service.resource = $resource('https://api.github.com/', {}, {

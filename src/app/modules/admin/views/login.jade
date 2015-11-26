@@ -52,7 +52,7 @@ div.container
 
 				.checkbox
 					label
-						input(type="checkbox" name="remember" id="remember")
+						input(type="checkbox" name="remember" id="remember" ng-model="loginCtrl.remember")
 						span(translate) Remember me
 					span.pull-right
 						a.restore-auth-data(ng-show="loginCtrl.isLPAuth" href="https://github.com/password_reset" target="_blank" translate) Forgot password?

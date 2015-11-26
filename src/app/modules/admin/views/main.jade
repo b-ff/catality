@@ -1,8 +1,26 @@
-div.container
+.navbar.navbar-default.navbar-static-top
+	.container-fluid
+		.navbar-header
+			button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#admin-navbar" aria-expanded="false")
+				span.sr-only Toggle navigation
+				span.icon-bar
+				span.icon-bar
+				span.icon-bar
 
-	h1
-		span(translate) Administrative panel
+			span.navbar-brand
+				i.fa.fa-github-alt
 
-	hr
+		.collapse.navbar-collapse(id="admin-navbar")
+			ul.nav.navbar-nav
+				li.active
+					a(href="#") Home
+				li
+					a(href="#") Content
+				li
+					a(href="#") Settings
 
-	p Admin panel content...
+			.pull-right
+				button.btn.navbar-btn.btn-default(ng-click="" translate) Log Out
+
+.container-fluid
+	h1(translate) Administrative panel

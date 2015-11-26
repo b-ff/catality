@@ -9,7 +9,7 @@ msgid "Access Token"
 msgstr ""
 
 #: modules/admin/views/login.html:3
-#: modules/admin/views/main.html:3
+#: modules/admin/views/main.html:20
 msgid "Administrative panel"
 msgstr ""
 
@@ -68,6 +68,10 @@ msgstr ""
 
 #: modules/admin/views/login.html:43
 msgid "Log In"
+msgstr ""
+
+#: modules/admin/views/main.html:14
+msgid "Log Out"
 msgstr ""
 
 #: modules/admin/views/login.html:13
