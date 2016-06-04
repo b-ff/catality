@@ -17,6 +17,6 @@ angular.module('cato', [
 
 	// modules
 
-	'cato.admin'
-
+	'cato.admin',
+	'cato.404'
 ]);

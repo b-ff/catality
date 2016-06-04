@@ -8,17 +8,8 @@
 
 (function () {
 
-	function config($routeProvider) {
-		$routeProvider
-
-			//.when('/', {
-			//    controller: 'clientController as clientCtrl',
-			//    templateUrl: '/src/views/main.jade'
-			//})
-
-			.otherwise({
-				redirectTo: '/admin/'
-			});
+	function config() {
+		//...
 	}
 
 	function run(gettextCatalog) {

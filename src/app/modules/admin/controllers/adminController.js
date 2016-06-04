@@ -14,8 +14,8 @@ function adminController($location, authService, configService) {
 	if (!authService.isAuthorized()) {
 		$location.path('/admin/login');
 	}
-
-	if (!configService.ready()) {
-		$location.path('/admin/setup');
-	}
+	//
+	//if (!configService.ready()) {
+	//	$location.path('/admin/setup');
+	//}
 }

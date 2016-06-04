@@ -19,7 +19,6 @@ var gulp = require('gulp'),
 gulp.task('clean', function () {
 	return gulp.src(['./tmp/', './dist/'])
 		.pipe(clean({force: true}))
-		.pipe(notify('Cleaning complete!'));
 });
 
 /**
@@ -103,7 +102,7 @@ gulp.task('dist:stylus', ['clean'], function () {
 });
 
 gulp.task('dist:css:app', ['dist:stylus'], function () {
-	return gulp.src('./tmp/css/**/*.css', {read: false})
+	return gulp.src('./tmp/css/**/*.css')
 		.pipe(gulp.dest('./dist/'));
 });
 
@@ -221,14 +220,17 @@ gulp.task('inject:min', ['dist:min'], function () {
 		.pipe(gulp.dest('./dist/'));
 });
 
-gulp.task('make', ['clean', 'dist', 'translations:pot', 'inject']);
+gulp.task('make', ['clean', 'dist', 'translations:pot', 'inject'], function() {
+	return gulp.src(['./tmp/'])
+		.pipe(clean({force: true}))
+		.pipe(notify('Compiled!'));
+});
 
 gulp.task('make:min', ['clean', 'dist:min', 'inject:min']);
 
 /**
  *  FINAL BUILDING
  */
-
 gulp.task('build', ['make:min'], function () {
 	return gulp.src([
 		'./tmp/',

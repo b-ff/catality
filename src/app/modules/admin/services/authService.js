@@ -18,15 +18,6 @@ function authService($http, $resource, base64Service) {
 		__shouldRemember = false,
 		__accountData = window.localStorage.getItem('catac');
 
-	if (__accountData) {
-		__accountData = JSON.parse(__accountData);
-
-		__login = __accountData['1'];
-		__pass = __accountData['2'];
-
-		__isLogged = true;
-	}
-
 	service.resource = $resource('https://api.github.com/', {}, {
 		'authenticate': {
 			url   : 'https://api.github.com/authorizations',
@@ -48,17 +39,10 @@ function authService($http, $resource, base64Service) {
 
 	service.isRemembered = function () {
 		return __isRemebered;
-	}
+	};
 
 	service.isTwoFactorRequired = function () {
 		return __twoFactorRequired;
-	};
-
-	service.setAuthData = function (login, password) {
-		__login = login;
-		__pass = password;
-
-		$http.defaults.headers.common['Authorization'] = 'Basic ' + service.getEncodedAuthData();
 	};
 
 	service.resetAuthData = function () {
@@ -72,7 +56,7 @@ function authService($http, $resource, base64Service) {
 	};
 
 	service.auth = function (login, password, shouldRemember) {
-		service.setAuthData(login, password);
+		setAuthData(login, password);
 
 		var promise = service.resource.authenticate().$promise;
 
@@ -142,6 +126,14 @@ function authService($http, $resource, base64Service) {
 
 			window.localStorage.setItem('catac', JSON.stringify(accData));
 		}
+	}
+
+	if (__accountData) {
+		__accountData = JSON.parse(__accountData);
+
+		setAuthData(__accountData['1'], __accountData['2']);
+
+		__isLogged = true;
 	}
 
 	return service;

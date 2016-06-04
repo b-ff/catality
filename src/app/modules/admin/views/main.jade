@@ -20,7 +20,24 @@
 					a(href="#") Settings
 
 			.pull-right
+				github-query-limits
 				button.btn.navbar-btn.btn-default(ng-click="" translate) Log Out
 
 .container-fluid
 	h1(translate) Administrative panel
+
+	hr
+
+	.row
+		.col-lg-3.col-md-4.col-sm-6.col-xs-12
+			uib-accordion(close-others="oneAtATime")
+				uib-accordion-group(heading="User")
+				uib-accordion-group(heading="Limits")
+					button.btn.btn-default.btn-block(ng-click="adminCtrl.apiSend('rateLimit')") Get Limits
+				uib-accordion-group(heading="Commits")
+				uib-accordion-group(heading="Repositories")
+
+		.col-lg-9.col-md-8.col-sm-6.col-xs-12
+			strong Response:
+
+			pre(ng-bind-html="adminCtrl.dump")

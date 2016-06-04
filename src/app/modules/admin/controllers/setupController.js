@@ -6,9 +6,9 @@
  * 27.11.15
  */
 
-angular.module('cato.admin').controller('setupController', '$location', 'configService', [setupController]);
+angular.module('cato.admin').controller('setupController', ['$location', 'configService', setupController]);
 
-function setupController(configService) {
+function setupController($location, configService) {
 	if (configService.ready()) {
 		$location.path('/admin/');
 	}
