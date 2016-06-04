@@ -1,26 +1,27 @@
 {
-  "name": "CatO",
+  "name": "Catality",
   "version": "0.0.1",
-  "description": "GitHub based CMS",
+  "description": "Complete tool for creating GitHub Pages content",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "gulp serve",
+	"postinstall": "bower i"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/b-ff/cato.git"
+    "url": "https://github.com/b-ff/catality.git"
   },
   "keywords": [
     "github",
     "pages",
     "angularjs",
     "singlepage",
-    "cms"
+    "markdown"
   ],
   "author": "Vyacheslav Biryukov <networmx128bit@gmail.com>",
   "license": "BSD-2-Clause",
   "bugs": {
-    "url": "https://github.com/b-ff/cato/issues"
+    "url": "https://github.com/b-ff/catality/issues"
   },
   "dependencies": {},
   "devDependencies": {

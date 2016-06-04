@@ -9,7 +9,10 @@ var gulp = require('gulp'),
 	webserver = require('gulp-webserver'),
 	minifyCSS = require('gulp-minify-css'),
 	gettext = require('gulp-angular-gettext'),
-	angularFilesort = require('gulp-angular-filesort');
+	angularFilesort = require('gulp-angular-filesort'),
+
+	tmpFolder = './tmp/',
+	distFolder = './catality/';
 
 
 /**
@@ -17,7 +20,7 @@ var gulp = require('gulp'),
  */
 
 gulp.task('clean', function () {
-	return gulp.src(['./tmp/', './dist/'])
+	return gulp.src([tmpFolder, distFolder])
 		.pipe(clean({force: true}))
 });
 
@@ -31,7 +34,7 @@ gulp.task('dist:js:vendor', ['clean'], function () {
 		'./bower_components/**/*.min.js',
 		'./bower_components/**/*-min.js'
 	])
-		.pipe(gulp.dest('./dist/vendor/js/'));
+		.pipe(gulp.dest(distFolder + 'vendor/js/'));
 });
 
 // Move vendor minified CSS to dist/css/vendor
@@ -40,7 +43,7 @@ gulp.task('dist:css:vendor', ['clean'], function () {
 		'./bower_components/**/*.min.css',
 		'./bower_components/**/*-min.css'
 	])
-		.pipe(gulp.dest('./dist/vendor/css/'));
+		.pipe(gulp.dest(distFolder + 'vendor/css/'));
 });
 
 // Common task for vendor files
@@ -48,24 +51,27 @@ gulp.task('dist:vendor', ['dist:js:vendor', 'dist:css:vendor', 'dist:fonts:vendo
 
 // Move all vendor js into a single file vendor.min.app
 gulp.task('dist:js:vendor:min', ['dist:js:vendor'], function () {
-	return gulp.src('./dist/vendor/js/**/*.js')
+	return gulp.src(distFolder + 'vendor/js/**/*.js')
 		.pipe(angularFilesort())
 		.pipe(uglify())
 		.pipe(concat('vendor.min.js'))
-		.pipe(gulp.dest('./dist/vendor/'));
+		.pipe(gulp.dest(distFolder + 'vendor/'));
 });
 
 // Move all vendor css into a single file vendor.min.css
 gulp.task('dist:css:vendor:min', ['dist:css:vendor'], function () {
-	return gulp.src('./dist/vendor/css/**/*.css')
+	return gulp.src(distFolder + 'vendor/css/**/*.css')
 		.pipe(minifyCSS())
 		.pipe(concat('vendor.min.css'))
-		.pipe(gulp.dest('./dist/vendor/'));
+		.pipe(gulp.dest(distFolder + 'vendor/'));
 });
 
 // Common task for vendor:min, removes separated vendor files
 gulp.task('dist:vendor:min', ['dist:js:vendor:min', 'dist:css:vendor:min', 'dist:fonts:vendor:min'], function () {
-	return gulp.src(['./dist/vendor/js', './dist/vendor/css'])
+	return gulp.src([
+		distFolder + 'vendor/js',
+		distFolder + 'vendor/css'
+	])
 		.pipe(clean({force: true}));
 });
 
@@ -77,7 +83,7 @@ gulp.task('dist:fonts:vendor', ['clean'], function () {
 		'./bower_components/**/*.ttf',
 		'./bower_components/**/*.svg'
 	])
-		.pipe(gulp.dest('./dist/vendor/css/'));
+		.pipe(gulp.dest(distFolder + 'vendor/css/'));
 });
 
 gulp.task('dist:fonts:vendor:min', ['clean'], function () {
@@ -88,7 +94,7 @@ gulp.task('dist:fonts:vendor:min', ['clean'], function () {
 		'./bower_components/**/*.ttf',
 		'./bower_components/**/*.svg'
 	])
-		.pipe(gulp.dest('./dist/vendor/'));
+		.pipe(gulp.dest(distFolder + 'vendor/'));
 });
 
 /**
@@ -98,24 +104,24 @@ gulp.task('dist:fonts:vendor:min', ['clean'], function () {
 gulp.task('dist:stylus', ['clean'], function () {
 	return gulp.src('./src/**/*.styl')
 		.pipe(stylus())
-		.pipe(gulp.dest('./tmp/css/'));
+		.pipe(gulp.dest(tmpFolder + 'css/'));
 });
 
 gulp.task('dist:css:app', ['dist:stylus'], function () {
-	return gulp.src('./tmp/css/**/*.css')
-		.pipe(gulp.dest('./dist/'));
+	return gulp.src(tmpFolder + 'css/**/*.css')
+		.pipe(gulp.dest(distFolder));
 });
 
 gulp.task('dist:css:app:min', ['dist:stylus'], function () {
-	return gulp.src('./tmp/css/**/*.css')
+	return gulp.src(tmpFolder + 'css/**/*.css')
 		.pipe(minifyCSS())
 		.pipe(concat('app.min.css'))
-		.pipe(gulp.dest('./dist/css/'));
+		.pipe(gulp.dest(distFolder + 'css/'));
 });
 
 gulp.task('dist:js:app', ['clean'], function () {
 	return gulp.src('./src/**/*.js')
-		.pipe(gulp.dest('./dist/'));
+		.pipe(gulp.dest(distFolder));
 });
 
 gulp.task('dist:js:app:min', function () {
@@ -123,7 +129,7 @@ gulp.task('dist:js:app:min', function () {
 		.pipe(angularFilesort())
 		.pipe(concat('app.min.js'))
 		.pipe(uglify())
-		.pipe(gulp.dest('./dist/js/'));
+		.pipe(gulp.dest(distFolder + 'js/'));
 });
 
 gulp.task('dist:jade', ['clean'], function () {
@@ -131,18 +137,18 @@ gulp.task('dist:jade', ['clean'], function () {
 		.pipe(jade({
 			pretty: true
 		}))
-		.pipe(gulp.dest('./dist/'))
+		.pipe(gulp.dest(distFolder))
 });
 
 gulp.task('dist:jade:min', ['clean'], function () {
 	return gulp.src('./src/**/*.jade')
 		.pipe(jade())
-		.pipe(gulp.dest('./dist/'))
+		.pipe(gulp.dest(distFolder))
 });
 
 gulp.task('dist:templates', ['clean'], function () {
 	return gulp.src(['./src/**/*.html', '!./src/index.html'])
-		.pipe(gulp.dest('./dist/'));
+		.pipe(gulp.dest(distFolder));
 });
 
 gulp.task('dist', ['dist:vendor', 'dist:css:app', 'translations:json', 'dist:js:app', 'dist:jade', 'dist:templates']);
@@ -153,7 +159,10 @@ gulp.task('dist:min', ['dist:vendor:min', 'dist:css:app:min', 'translations:json
  */
 
 gulp.task('translations:pot', ['dist:jade'], function () {
-	return gulp.src(['./dist/app/**/*.html', './dist/app/**/*.js'])
+	return gulp.src([
+		distFolder + 'app/**/*.html',
+		distFolder + 'app/**/*.js'
+	])
 		.pipe(gettext.extract('i18n.pot', {
 			// options to pass to angular-gettext-tools...
 		}))
@@ -166,7 +175,7 @@ gulp.task('translations:json', ['dist:jade'], function () {
 			// options to pass to angular-gettext-tools...
 			format: 'json'
 		}))
-		.pipe(gulp.dest('./dist/app/translations/'));
+		.pipe(gulp.dest(distFolder + 'app/translations/'));
 });
 
 /**
@@ -175,21 +184,21 @@ gulp.task('translations:json', ['dist:jade'], function () {
 
 gulp.task('inject', ['dist'], function () {
 	var css = gulp.src([
-		'./dist/vendor/css/**/*.css',
-		'./dist/app/**/*.css'
+		distFolder + 'vendor/css/**/*.css',
+		distFolder + 'app/**/*.css'
 	]);
 
-	var jquery = gulp.src('./dist/vendor/js/jquery/dist/jquery.min.js');
+	var jquery = gulp.src(distFolder + 'vendor/js/jquery/dist/jquery.min.js');
 
-	var vendorJS = gulp.src('./dist/vendor/js/**/*.js');
+	var vendorJS = gulp.src(distFolder + 'vendor/js/**/*.js');
 	//.pipe(angularFilesort());
 
 	//vendorJS = es.merge(jquery, vendorJS);
 
-	var appJS = gulp.src(['./dist/app/**/*.js'])
+	var appJS = gulp.src([distFolder + 'app/**/*.js'])
 		.pipe(angularFilesort());
 
-	return gulp.src('./dist/index.html')
+	return gulp.src(distFolder + 'index.html')
 		.pipe(inject(css, {relative: true}))
 		.pipe(inject(vendorJS, {
 			relative: true,
@@ -199,15 +208,18 @@ gulp.task('inject', ['dist'], function () {
 			relative: true,
 			starttag: '<!-- inject:app:js-->'
 		}))
-		.pipe(gulp.dest('./dist/'));
+		.pipe(gulp.dest(distFolder));
 });
 
 gulp.task('inject:min', ['dist:min'], function () {
-	var css = gulp.src(['./dist/vendor/vendor.min.css', './dist/css/app.min.css']);
-	var vendorJS = gulp.src('./dist/vendor/vendor.min.js');
-	var appJS = gulp.src('./dist/js/app.min.js');
+	var appJS = gulp.src(distFolder + 'js/app.min.js'),
+		vendorJS = gulp.src(distFolder + 'vendor/vendor.min.js'),
+		css = gulp.src([
+			distFolder + 'vendor/vendor.min.css',
+			distFolder + 'css/app.min.css'
+		]);
 
-	return gulp.src('./dist/index.html')
+	return gulp.src(distFolder + 'index.html')
 		.pipe(inject(css, {relative: true}))
 		.pipe(inject(vendorJS, {
 			relative: true,
@@ -217,11 +229,11 @@ gulp.task('inject:min', ['dist:min'], function () {
 			relative: true,
 			starttag: '<!-- inject:app:js -->'
 		}))
-		.pipe(gulp.dest('./dist/'));
+		.pipe(gulp.dest(distFolder));
 });
 
 gulp.task('make', ['clean', 'dist', 'translations:pot', 'inject'], function() {
-	return gulp.src(['./tmp/'])
+	return gulp.src(tmpFolder)
 		.pipe(clean({force: true}))
 		.pipe(notify('Compiled!'));
 });
@@ -234,10 +246,10 @@ gulp.task('make:min', ['clean', 'dist:min', 'inject:min']);
 gulp.task('build', ['make:min'], function () {
 	return gulp.src([
 		'./tmp/',
-		'./dist/vendor/css/',
-		'./dist/css/app/',
-		'./dist/vendor/js/',
-		'./dist/js/app/'
+		distFolder + 'vendor/css/',
+		distFolder + 'css/app/',
+		distFolder + 'vendor/js/',
+		distFolder + 'js/app/'
 	])
 		.pipe(clean({force: true}))
 		.pipe(notify('Building complete!'));
@@ -250,7 +262,7 @@ gulp.task('serve', ['make'], function () {
 	gulp.watch('./src/app/**/*.styl', ['make']);
 	gulp.watch('./src/app/**/*.html', ['make']);
 
-	return gulp.src('./dist/')
+	return gulp.src(distFolder)
 		.pipe(webserver({
 			open: true
 		}));

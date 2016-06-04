@@ -1,0 +1,65 @@
+
+<div class="container">
+  <h1><span translate="translate">Administrative panel</span></h1>
+  <hr/>
+  <div class="col-lg-4 col-md-3 col-sm-2 col-xs-1"></div>
+  <div class="col-lg-4 col-md-6 col-sm-8 col-xs-10">
+    <div ng-if="!loginCtrl.isRemembered" class="auth">
+      <p translate="translate" class="text-center">Authorize with your GitHub account to continue</p><br/>
+      <div role="alert" ng-repeat="error in loginCtrl.errors" class="alert alert-danger"><strong ng-if="error.message">{{ error.message }}</strong><br/>See GitHub API docs:&nbsp;<a ng-if="error.documentation_url" ng-href="error.documentation_url">{{ error.documentation_url }}</a></div>
+      <form id="auth" ng-submit="loginCtrl.auth()">
+        <uib-tabset>
+          <uib-tab active="loginCtrl.isLPAuth">
+            <uib-tab-heading translate="translate">Login/Password</uib-tab-heading><br/>
+            <div class="form-group">
+              <input type="text" name="login" placeholder="{{ 'GitHub Login' | translate }}" id="login" ng-model="loginCtrl.login" class="form-control"/>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <input type="{{ loginCtrl.passFieldType }}" name="password" placeholder="{{ 'Password' | translate }}" id="password" ng-model="loginCtrl.password" class="form-control"/>
+                <div ng-click="loginCtrl.togglePassField()" class="input-group-addon"><i ng-if="loginCtrl.passFieldType == 'password'" class="fa fa-eye-slash"></i><i ng-if="loginCtrl.passFieldType != 'password'" class="fa fa-eye"></i></div>
+              </div>
+            </div>
+          </uib-tab>
+          <uib-tab active="loginCtrl.isTokenAuth">
+            <uib-tab-heading translate="translate">Access Token</uib-tab-heading><br/>
+            <div class="form-group">
+              <input type="text" name="login" placeholder="{{ 'GitHub Login' | translate }}" id="login" ng-model="loginCtrl.login" class="form-control"/>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <input type="{{ loginCtrl.passFieldType }}" name="token" placeholder="{{ 'GitHub Access Token' | translate }}" id="token" ng-model="loginCtrl.token" class="form-control"/>
+                <div ng-click="loginCtrl.togglePassField()" class="input-group-addon"><i ng-if="loginCtrl.passFieldType == 'password'" class="fa fa-eye-slash"></i><i ng-if="loginCtrl.passFieldType != 'password'" class="fa fa-eye"></i></div>
+              </div>
+            </div>
+          </uib-tab>
+        </uib-tabset>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="remember" id="remember" ng-model="loginCtrl.remember"/><span translate="translate">Remember me</span>
+          </label><span class="pull-right"><a ng-show="loginCtrl.isLPAuth" href="https://github.com/password_reset" target="_blank" translate="translate" class="restore-auth-data">Forgot password?</a><a ng-show="loginCtrl.isTokenAuth" href="https://github.com/settings/tokens" target="_blank" translate="translate" class="restore-auth-data">Create new token</a></span>
+        </div>
+        <div class="form-group">
+          <button type="submit" ng-disabled="(loginCtrl.login || loginCtrl.password) &amp;&amp; loginCtrl.token" translate="translate" class="btn btn-lg btn-success">Log In</button>
+        </div>
+        <div ng-show="loginCtrl.isLPAuth" class="well"><strong translate="translate">Use this method for the first-time or single auth</strong></div>
+        <div ng-show="loginCtrl.isTokenAuth" class="well"><strong translate="translate">Authorization with Access Token is more preferred cause:</strong>
+          <p>
+            <ul>
+              <li translate="translate">It's faster</li>
+              <li translate="translate">There's no need to use phone or app</li>
+              <li translate="translate">In case of security leak you can revoke compromised token</li>
+            </ul>
+          </p>
+        </div>
+      </form>
+    </div>
+    <div ng-if="loginCtrl.isRemembered" class="re-check">
+      <p class="text-center">
+        <h3 translate="translate" class="text-center">Hi! Seems like we met before!</h3>
+        <h3 class="text-center"><small translate="translate">Hold on a second, i'll check it...</small></h3>
+      </p>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-3 col-sm-2 col-xs-1"></div>
+</div>
