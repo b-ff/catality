@@ -18,7 +18,7 @@
 	}
 
 	angular
-		.module('cato.404', ['ngRoute', 'cato.global'])
+		.module('catality.404', ['ngRoute', 'catality.global'])
 		.config(['$routeProvider', config]);
 })();
 

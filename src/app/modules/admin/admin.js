@@ -24,7 +24,7 @@
 			})
 	}
 
-	angular.module('catality.admin', ['ngRoute', 'cato.global'])
+	angular.module('catality.admin', ['ngRoute', 'catality.global'])
 		.config(['$routeProvider', config]);
 
 })();
