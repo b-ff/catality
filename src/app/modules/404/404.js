@@ -7,9 +7,6 @@
  */
 
 (function() {
-	angular.module('cato.404', ['ngRoute', 'cato.global'])
-		.config(['$routeProvider', config]);
-
 	function config($routeProvider) {
 		$routeProvider
 			.when('/404/', {
@@ -19,5 +16,9 @@
 				redirectTo: '/404/'
 			});
 	}
+
+	angular
+		.module('cato.404', ['ngRoute', 'cato.global'])
+		.config(['$routeProvider', config]);
 })();
 

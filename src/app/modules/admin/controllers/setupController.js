@@ -6,7 +6,7 @@
  * 27.11.15
  */
 
-angular.module('cato.admin').controller('setupController', ['$location', 'configService', setupController]);
+angular.module('catality.admin').controller('setupController', ['$location', 'configService', setupController]);
 
 function setupController($location, configService) {
 	if (configService.ready()) {

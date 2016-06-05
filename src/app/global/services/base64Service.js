@@ -6,7 +6,7 @@
  * 08.10.15
  */
 
-angular.module('cato.global').factory('base64Service', [base64Service]);
+angular.module('catality.global').factory('base64Service', [base64Service]);
 
 function base64Service() {
 	var service = {},

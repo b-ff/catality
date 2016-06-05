@@ -6,4 +6,4 @@
  * 08.10.15.
  */
 
-angular.module('cato.global', []);
+angular.module('catality.global', []);

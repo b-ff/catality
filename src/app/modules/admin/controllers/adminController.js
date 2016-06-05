@@ -6,7 +6,7 @@
  * 08.10.15
  */
 
-angular.module('cato.admin').controller('adminController', ['$location', 'authService', 'configService', adminController]);
+angular.module('catality.admin').controller('adminController', ['$location', 'authService', 'configService', adminController]);
 
 function adminController($location, authService, configService) {
 	var thisCtrl = this;

@@ -29,6 +29,7 @@
     "angular-route": "~1.4.7",
     "bootstrap": "~3.3.5",
     "font-awesome": "~4.4.0",
-    "ui-bootstrap": "~0.13.4"
+    "ui-bootstrap": "~0.13.4",
+    "showdown": "^1.4.1"
   }
 }

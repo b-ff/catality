@@ -6,7 +6,7 @@
  * 08.10.15.
  */
 
-angular.module('cato', [
+angular.module('catality', [
 
 	// angular components
 
@@ -17,6 +17,6 @@ angular.module('cato', [
 
 	// modules
 
-	'cato.admin',
-	'cato.404'
+	'catality.admin',
+	'catality.404'
 ]);

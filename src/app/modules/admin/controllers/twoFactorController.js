@@ -6,7 +6,7 @@
  * 15.11.15
  */
 
-angular.module('cato.admin').controller('twoFactorController', ['$uibModalInstance', 'authService', twoFactorController]);
+angular.module('catality.admin').controller('twoFactorController', ['$uibModalInstance', 'authService', twoFactorController]);
 
 function twoFactorController($uibModalInstance, authService) {
 	var thisCtrl = this;

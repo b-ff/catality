@@ -6,7 +6,7 @@
  * 08.10.15
  */
 
-angular.module('cato.admin').factory('authService', ['$http', '$resource', 'base64Service', authService]);
+angular.module('catality.admin').factory('authService', ['$http', '$resource', 'base64Service', authService]);
 
 function authService($http, $resource, base64Service) {
 	var service = {},

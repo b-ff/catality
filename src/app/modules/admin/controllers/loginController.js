@@ -6,7 +6,7 @@
  * 15.11.15
  */
 
-angular.module('cato.admin').controller('loginController', ['$location', '$uibModal', 'authService', loginController]);
+angular.module('catality.admin').controller('loginController', ['$location', '$uibModal', 'authService', loginController]);
 
 function loginController($location, $uibModal, authService) {
 	var thisCtrl = this;

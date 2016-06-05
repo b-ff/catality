@@ -20,7 +20,7 @@
 		}
 	}
 
-	angular.module('cato').config(['$routeProvider', config]);
-	angular.module('cato').run(['gettextCatalog', run]);
+	angular.module('catality').config(['$routeProvider', config]);
+	angular.module('catality').run(['gettextCatalog', run]);
 
 })();

@@ -6,7 +6,7 @@
  * 27.11.15
  */
 
-angular.module('cato.global').factory('configService', [configService]);
+angular.module('catality.global').factory('configService', [configService]);
 
 function configService() {
 	var service = {};
