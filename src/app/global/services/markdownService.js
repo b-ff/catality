@@ -31,7 +31,6 @@ function markdownService() {
 	service.getHeader = function(md, level) {
 		var regexp = new RegExp('#{' + (level || 1) + '}\s?([^\n]*)');
             match = md.match(regexp);
-
         return match ? match[1].trim() : '';
 	};
 
