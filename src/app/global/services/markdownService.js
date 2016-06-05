@@ -6,9 +6,9 @@
  * 05.06.16
  */
 
-angular.module('catality.global').factory('markdownService', markdownService);
+angular.module('catality.global').factory('markdownService', ['$http', markdownService]);
 
-function markdownService() {
+function markdownService($http) {
 	var service = {},
 		converter = new showdown.Converter();
 
@@ -33,6 +33,27 @@ function markdownService() {
             match = md.match(regexp);
         return match ? match[1].trim() : '';
 	};
+
+    /**
+     * Return body of the document without top-level header
+     * @param md - Markdown text
+     */
+    service.getBody = function(md) {
+        return md.replace(/#\s?[^\n]*/, '');
+    };
+
+    /**
+     * Gets content of markdown file placed on specified url
+     * @param mdUrl - url to markdown file
+     * @returns {Object} Promise
+     */
+    service.loadMarkdown = function(mdUrl) {
+        if (!mdUrl.match(/^.*\.md$/i)) {
+            throw new Error('Received URL doesn\'t look like a path to markdown file');
+        }
+
+        return $http.get(mdUrl);
+    };
 
 	return service;
 }

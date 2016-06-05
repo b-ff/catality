@@ -30,6 +30,7 @@
     "bootstrap": "~3.3.5",
     "font-awesome": "~4.4.0",
     "ui-bootstrap": "~0.13.4",
-    "showdown": "^1.4.1"
+    "showdown": "^1.4.1",
+    "angular-sanitize": "^1.5.6"
   }
 }

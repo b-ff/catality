@@ -16,7 +16,7 @@
 		if (window.navigator.language) {
 			var lang = window.navigator.language;
 			gettextCatalog.setCurrentLanguage('ru');
-			gettextCatalog.loadRemote('/app/translations/' + lang + '.json');
+			gettextCatalog.loadRemote('/catality/app/translations/' + lang + '.json');
 		}
 	}
 

@@ -26,9 +26,14 @@ describe('Services', function () {
         });
 
         it('Should get header from markdown filtered by level', function () {
-            expect(markdownService().getHeader('# First \n ## Second \n ### Third')).to.be.equals('First');
+
             expect(markdownService().getHeader('# First \n ## Second \n ### Third', 2)).to.be.equals('Second');
             expect(markdownService().getHeader('# First \n ## Second \n ### Third', 3)).to.be.equals('Third');
+        });
+
+        it('Should get document body from markdown without top-level header', function () {
+            expect(markdownService().getBody('#First \nBody')).to.be.equals('Body');
+            expect(markdownService().getBody('# First \nBody')).to.be.equals('Body');
         });
     });
 });

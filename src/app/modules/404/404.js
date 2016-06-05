@@ -10,11 +10,9 @@
 	function config($routeProvider) {
 		$routeProvider
 			.when('/404/', {
+				controller: 'notFoundController as nfCtrl',
 				templateUrl:'/app/modules/404/views/404.html'
 			})
-			.otherwise({
-				redirectTo: '/404/'
-			});
 	}
 
 	angular

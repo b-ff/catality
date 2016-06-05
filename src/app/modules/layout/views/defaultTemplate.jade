@@ -1,0 +1,18 @@
+.container
+    h1.document__title {{ layoutCtrl.title }}
+    hr
+
+    .document__content(ng-show="layoutCtrl.markdown")
+        uib-tabset(active="activeJustified" justified="true")
+            uib-tab(index="0" heading="Layout")
+                br
+                .document__content__html(ng-bind-html="layoutCtrl.body")
+
+            uib-tab(index="1" heading="Markdown")
+                br
+                pre.document__content__markdown {{ layoutCtrl.markdown }}
+
+    .document__content(ng-show="!layoutCtrl.markdown")
+        .document__content__html(ng-bind-html="layoutCtrl.body")
+
+    hr

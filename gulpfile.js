@@ -20,7 +20,11 @@ var gulp = require('gulp'),
  */
 
 gulp.task('clean', function () {
-	return gulp.src([tmpFolder, distFolder])
+	return gulp.src([
+		tmpFolder,
+		distFolder,
+		'./index.html'
+	])
 		.pipe(clean({force: true}))
 });
 
@@ -140,19 +144,13 @@ gulp.task('dist:jade', ['clean'], function () {
 		.pipe(gulp.dest(distFolder))
 });
 
-gulp.task('dist:jade:min', ['clean'], function () {
-	return gulp.src('./src/**/*.jade')
-		.pipe(jade())
-		.pipe(gulp.dest(distFolder))
-});
-
 gulp.task('dist:templates', ['clean'], function () {
 	return gulp.src(['./src/**/*.html', '!./src/index.html'])
 		.pipe(gulp.dest(distFolder));
 });
 
 gulp.task('dist', ['dist:vendor', 'dist:css:app', 'translations:json', 'dist:js:app', 'dist:jade', 'dist:templates']);
-gulp.task('dist:min', ['dist:vendor:min', 'dist:css:app:min', 'translations:json', 'dist:js:app:min', 'dist:jade:min', 'dist:templates']);
+gulp.task('dist:min', ['dist:vendor:min', 'dist:css:app:min', 'translations:json', 'dist:js:app:min', 'dist:jade', 'dist:templates']);
 
 /**
  *  TRANSLATIONS
@@ -182,7 +180,7 @@ gulp.task('translations:json', ['dist:jade'], function () {
  *  INJECT
  */
 
-gulp.task('inject', ['dist'], function () {
+gulp.task('inject', ['dist', 'moveIndex'], function () {
 	var css = gulp.src([
 		distFolder + 'vendor/css/**/*.css',
 		distFolder + 'app/**/*.css'
@@ -198,7 +196,7 @@ gulp.task('inject', ['dist'], function () {
 	var appJS = gulp.src([distFolder + 'app/**/*.js'])
 		.pipe(angularFilesort());
 
-	return gulp.src(distFolder + 'index.html')
+	return gulp.src('./index.html')
 		.pipe(inject(css, {relative: true}))
 		.pipe(inject(vendorJS, {
 			relative: true,
@@ -208,10 +206,10 @@ gulp.task('inject', ['dist'], function () {
 			relative: true,
 			starttag: '<!-- inject:app:js-->'
 		}))
-		.pipe(gulp.dest(distFolder));
+		.pipe(gulp.dest('./'));
 });
 
-gulp.task('inject:min', ['dist:min'], function () {
+gulp.task('inject:min', ['dist:min', 'moveIndex'], function () {
 	var appJS = gulp.src(distFolder + 'js/app.min.js'),
 		vendorJS = gulp.src(distFolder + 'vendor/vendor.min.js'),
 		css = gulp.src([
@@ -219,7 +217,7 @@ gulp.task('inject:min', ['dist:min'], function () {
 			distFolder + 'css/app.min.css'
 		]);
 
-	return gulp.src(distFolder + 'index.html')
+	return gulp.src('./index.html')
 		.pipe(inject(css, {relative: true}))
 		.pipe(inject(vendorJS, {
 			relative: true,
@@ -229,7 +227,12 @@ gulp.task('inject:min', ['dist:min'], function () {
 			relative: true,
 			starttag: '<!-- inject:app:js -->'
 		}))
-		.pipe(gulp.dest(distFolder));
+		.pipe(gulp.dest('./'));
+});
+
+gulp.task('moveIndex', ['dist:jade'], function() {
+	return gulp.src(distFolder + 'index.html')
+		.pipe(gulp.dest('./'));
 });
 
 gulp.task('make', ['clean', 'dist', 'translations:pot', 'inject'], function() {
@@ -262,7 +265,7 @@ gulp.task('serve', ['make'], function () {
 	gulp.watch('./src/app/**/*.styl', ['make']);
 	gulp.watch('./src/app/**/*.html', ['make']);
 
-	return gulp.src(distFolder)
+	return gulp.src('./')
 		.pipe(webserver({
 			open: true
 		}));
