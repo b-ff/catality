@@ -35,4 +35,44 @@ describe('Services', function () {
 			expect(markdownService().getBody('# First \nBody')).to.be.equals('Body');
 		});
 	});
+
+	describe('Link Service', function () {
+		var location;
+
+		beforeEach(inject(function($location) {
+			location = $location;
+		}));
+
+		it('Should be an object', function () {
+			expect(linkService(location)).to.be.a('Object');
+		});
+
+		it('Should detect external link', function() {
+			expect(linkService(location).isExternalLink('https://google.com')).to.be.true;
+		});
+
+		it('Should detect internal link', function() {
+			expect(linkService(location).isExternalLink('localhost')).to.be.true;
+		});
+
+		it('Should detect internal link with protocol', function() {
+			expect(linkService(location).isExternalLink('http://localhost/')).to.be.true;
+		});
+
+		it('Should detect internal link with port', function() {
+			expect(linkService(location).isExternalLink('http://localhost:9876/')).to.be.true;
+		});
+
+		it('Should detect empty url as a local', function() {
+			expect(linkService(location).isLocalLink('')).to.be.true;
+		});
+
+		it('Should detect hash as a local URL', function() {
+			expect(linkService(location).isLocalLink('#top')).to.be.true;
+		});
+
+		it('Should detect relative path as a local URL', function() {
+			expect(linkService(location).isLocalLink('/articles/popular')).to.be.true;
+		});
+	})
 });

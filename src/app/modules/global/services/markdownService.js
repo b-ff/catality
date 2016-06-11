@@ -39,7 +39,7 @@ function markdownService($http) {
 	 * @param md - Markdown text
 	 */
 	service.getBody = function(md) {
-		return md.replace(/#\s?[^\n]*/, '');
+		return md.replace(/#\s?[^\n]*\n/, '');
 	};
 
 	/**
