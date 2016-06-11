@@ -7,33 +7,32 @@
  */
 
 describe('Services', function () {
-    describe('Markdown Service', function () {
-        it('Should be an object', function () {
-            expect(markdownService()).to.be.a('Object');
-        });
+	describe('Markdown Service', function () {
+		it('Should be an object', function () {
+			expect(markdownService()).to.be.a('Object');
+		});
 
-        it('Should convert markdown to html via toHtml() method', function () {
-            var md = '[GitHub!](www.github.com)',
-                html = '<p><a href="www.github.com">GitHub!</a></p>';
+		it('Should convert markdown to html via toHtml() method', function () {
+			var md = '[GitHub!](www.github.com)',
+				html = '<p><a href="www.github.com">GitHub!</a></p>';
 
-            markdownService().toHtml(md).should.equal(html);
-        });
+			markdownService().toHtml(md).should.equal(html);
+		});
 
-        it('Should get header from markdown', function () {
-            expect(markdownService().getHeader('# Cats!')).to.be.equals('Cats!');
-            expect(markdownService().getHeader('#Header without space')).to.be.equals('Header without space');
-            expect(markdownService().getHeader('#')).to.be.equals('');
-        });
+		it('Should get header from markdown', function () {
+			expect(markdownService().getHeader('# Cats!')).to.be.equals('Cats!');
+			expect(markdownService().getHeader('#Header without space')).to.be.equals('Header without space');
+			expect(markdownService().getHeader('#')).to.be.equals('');
+		});
 
-        it('Should get header from markdown filtered by level', function () {
+		it('Should get header from markdown filtered by level', function () {
+			expect(markdownService().getHeader('# First \n ## Second \n ### Third', 2)).to.be.equals('Second');
+			expect(markdownService().getHeader('# First \n ## Second \n ### Third', 3)).to.be.equals('Third');
+		});
 
-            expect(markdownService().getHeader('# First \n ## Second \n ### Third', 2)).to.be.equals('Second');
-            expect(markdownService().getHeader('# First \n ## Second \n ### Third', 3)).to.be.equals('Third');
-        });
-
-        it('Should get document body from markdown without top-level header', function () {
-            expect(markdownService().getBody('#First \nBody')).to.be.equals('Body');
-            expect(markdownService().getBody('# First \nBody')).to.be.equals('Body');
-        });
-    });
+		it('Should get document body from markdown without top-level header', function () {
+			expect(markdownService().getBody('#First \nBody')).to.be.equals('Body');
+			expect(markdownService().getBody('# First \nBody')).to.be.equals('Body');
+		});
+	});
 });

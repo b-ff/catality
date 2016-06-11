@@ -18,7 +18,7 @@ angular.module('catality', [
 	// modules
 
 	'catality.global',
-	'catality.layout',
+	'catality.404',
 	'catality.admin',
-	'catality.404'
+	'catality.layout'
 ]);

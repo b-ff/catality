@@ -12,25 +12,32 @@
     function layoutController($location, markdownService) {
         var thisCtrl = this;
 
-        thisCtrl.path = $location.path();
-
-        thisCtrl.title = '';
         thisCtrl.markdown = '';
+        thisCtrl.title = '';
+        thisCtrl.body = '';
         thisCtrl.html = '';
 
-        // If we at the main page
-        if (thisCtrl.path == '/') {
-            thisCtrl.path = '/README.md';
+        // If we're at the main page
+        if ($location.path() == '' || $location.path() == '/') {
+            $location.path('/README.md');
         }
 
-        markdownService.loadMarkdown(thisCtrl.path).then(markdownLoadSuccess, markdownLoadFailed);
+        markdownService.loadMarkdown($location.path()).then(markdownLoadSuccess, markdownLoadFailed);
 
+        /**
+         * Callback for success loading of markdown file content
+         * @param {String} response - markdown content
+         */
         function markdownLoadSuccess(response) {
             thisCtrl.title = markdownService.getHeader(response.data);
             thisCtrl.body = markdownService.toHtml(markdownService.getBody(response.data));
             thisCtrl.markdown = response.data;
         }
 
+        /**
+         * Callback for failed loading of markdown file content
+         * @param {Object} response - http response object
+         */
         function markdownLoadFailed(response) {
             if (response.status == 404) {
                 $location.url('/404/?title=' + response.data);

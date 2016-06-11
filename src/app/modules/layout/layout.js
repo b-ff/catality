@@ -8,15 +8,15 @@
 
 (function () {
 
-    function config($routeProvider) {
-        $routeProvider
-            .when('/', {
-                controller : 'layoutController as layoutCtrl',
-                templateUrl: '../../catality/app/modules/layout/views/defaultTemplate.html'
-            })
-    }
+	function config($routeProvider) {
+		$routeProvider
+			// Main route config for viewing all documents
+			.when('/:path*?', {
+				controller: 'layoutController as layoutCtrl',
+				templateUrl: '/catality/app/modules/layout/views/defaultTemplate.html'
+			})
+	}
 
-    angular.module('catality.layout', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'catality.global'])
-        .config(['$routeProvider', config]);
-
+	angular.module('catality.layout', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'catality.global'])
+		.config(['$routeProvider', config]);
 })();

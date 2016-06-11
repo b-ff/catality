@@ -1,18 +1,18 @@
 .container
-   h1 Oops...
+	h1 Oops...
 
-   hr(ng-show="nfCtrl.header")
-   h2(ng-show="nfCtrl.header") {{ nfCtrl.header }}
-   hr(ng-show="nfCtrl.header")
+	hr(ng-show="nfCtrl.header")
+	h2(ng-show="nfCtrl.header") {{ nfCtrl.header }}
+	hr(ng-show="nfCtrl.header")
 
-   p There's nothing to show you.
-   p Why it may happend?
-      ul
-         li The link you clicked is outdated or was removed.
-         li You entered a wrong URL.
-         li We have some troubles in our routing system.
+	p There's nothing to show you.
+	p Why it may happend?
+		ul
+			li The link you clicked is outdated or was removed.
+			li You entered a wrong URL.
+			li We have some troubles in our routing system.
 
-   p The best thing you can do is keep calm and try to start from
-      a(href="/") Main Page
-      br
-      i And let the force be with you!
+	p The best thing you can do is keep calm and try to start from&nbsp;
+		a(href="/") Main Page
+		hr
+		i.text-muted And let the force be with you!

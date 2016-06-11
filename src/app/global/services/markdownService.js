@@ -30,30 +30,30 @@ function markdownService($http) {
 	 */
 	service.getHeader = function(md, level) {
 		var regexp = new RegExp('#{' + (level || 1) + '}\s?([^\n]*)');
-            match = md.match(regexp);
-        return match ? match[1].trim() : '';
+			match = md.match(regexp);
+		return match ? match[1].trim() : '';
 	};
 
-    /**
-     * Return body of the document without top-level header
-     * @param md - Markdown text
-     */
-    service.getBody = function(md) {
-        return md.replace(/#\s?[^\n]*/, '');
-    };
+	/**
+	 * Return body of the document without top-level header
+	 * @param md - Markdown text
+	 */
+	service.getBody = function(md) {
+		return md.replace(/#\s?[^\n]*/, '');
+	};
 
-    /**
-     * Gets content of markdown file placed on specified url
-     * @param mdUrl - url to markdown file
-     * @returns {Object} Promise
-     */
-    service.loadMarkdown = function(mdUrl) {
-        if (!mdUrl.match(/^.*\.md$/i)) {
-            throw new Error('Received URL doesn\'t look like a path to markdown file');
-        }
+	/**
+	 * Gets content of markdown file placed on specified url
+	 * @param mdUrl - url to markdown file
+	 * @returns {Object} Promise
+	 */
+	service.loadMarkdown = function(mdUrl) {
+		if (!mdUrl.match(/^.*\.md$/i)) {
+			throw new Error('Received URL doesn\'t look like a path to markdown file');
+		}
 
-        return $http.get(mdUrl);
-    };
+		return $http.get(mdUrl);
+	};
 
 	return service;
 }

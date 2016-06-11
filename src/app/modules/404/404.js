@@ -11,7 +11,7 @@
 		$routeProvider
 			.when('/404/', {
 				controller: 'notFoundController as nfCtrl',
-				templateUrl:'/app/modules/404/views/404.html'
+				templateUrl:'/catality/app/modules/404/views/404.html'
 			})
 	}
 

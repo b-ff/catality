@@ -1,5 +1,5 @@
 /**
- * ...
+ * Controller for "Not Found" page
  *
  * @author slava <networmx128bit@gmail.com>
  * @version 0.0.1
@@ -7,7 +7,7 @@
  */
 
 (function() {
-    angular.module('catality.layout').controller('notFoundController', ['$location', notFoundController]);
+    angular.module('catality.404').controller('notFoundController', ['$location', notFoundController]);
 
     function notFoundController($location) {
         var thisCtrl = this;
