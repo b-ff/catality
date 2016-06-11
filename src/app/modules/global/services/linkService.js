@@ -29,6 +29,11 @@ function linkService($location) {
 			return true;
 		}
 
+		// If URL is relative path
+		if (url.match(/^\/.*$/) != null) {
+			return true;
+		}
+
 		return url.match(new RegExp('^'+fullLocation+'.*$')) != null;
 	};
 
