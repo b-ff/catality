@@ -10,8 +10,3 @@ The brave and complete application for managing and custom layout for your proje
 * Your custom layout templates for beautiful layout
 * Your [Markdown](https://en.wikipedia.org/wiki/Markdown) files which will be converted to HTML with [Showdown library](http://showdownjs.github.io/demo/) and mixed with your layout templates
 * GitHub API for flexible management via included administrative interface... yep, someday...
-
-#### Basic principles:
-* [Routing](principles/routing.md)
-* [Theming](principles/theming.md)
-* [Editing](principles/editing.md)

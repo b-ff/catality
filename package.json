@@ -30,7 +30,7 @@
     "del": "~2.0.2",
     "eslint": "^2.12.0",
     "event-stream": "~3.3.2",
-    "gulp": "~3.9.0",
+    "gulp": "^3.9.1",
     "gulp-angular-filesort": "~1.1.1",
     "gulp-angular-gettext": "~2.1.0",
     "gulp-clean": "~0.3.1",

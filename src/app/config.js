@@ -9,7 +9,7 @@
 (function () {
 
 	function config() {
-		//...
+		// ...
 	}
 
 	function run(gettextCatalog) {
@@ -20,7 +20,7 @@
 		}
 	}
 
-	angular.module('catality').config(['$routeProvider', config]);
+	angular.module('catality').config([config]);
 	angular.module('catality').run(['gettextCatalog', run]);
 
 })();
