@@ -105,6 +105,11 @@ gulp.task('dist:fonts:vendor:min', ['clean'], function () {
  *  APP STYLES TASKS
  */
 
+gulp.task('dist:images', ['clean'], function () {
+	return gulp.src('./src/images/**/*')
+		.pipe(gulp.dest(distFolder + 'images/'));
+});
+
 gulp.task('dist:stylus', ['clean'], function () {
 	return gulp.src('./src/**/*.styl')
 		.pipe(stylus())
@@ -149,8 +154,8 @@ gulp.task('dist:templates', ['clean'], function () {
 		.pipe(gulp.dest(distFolder));
 });
 
-gulp.task('dist', ['dist:vendor', 'dist:css:app', 'translations:json', 'dist:js:app', 'dist:jade', 'dist:templates']);
-gulp.task('dist:min', ['dist:vendor:min', 'dist:css:app:min', 'translations:json', 'dist:js:app:min', 'dist:jade', 'dist:templates']);
+gulp.task('dist', ['dist:vendor', 'dist:images', 'dist:css:app', 'translations:json', 'dist:js:app', 'dist:jade', 'dist:templates']);
+gulp.task('dist:min', ['dist:vendor:min', 'dist:images', 'dist:css:app:min', 'translations:json', 'dist:js:app:min', 'dist:jade', 'dist:templates']);
 
 /**
  *  TRANSLATIONS

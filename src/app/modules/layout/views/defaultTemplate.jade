@@ -1,18 +1,42 @@
-.container
-	h1.document__title {{ layoutCtrl.title }}
-	hr
+.default-template
+	nav.navbar.navbar-default.navbar-fixed-top
+		.container-fluid
+			.navbar-header
+				button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topmenu" aria-expanded="false")
+					span.sr-only Toggle navigation
+					span.icon-bar
+					span.icon-bar
+					span.icon-bar
 
-	.document__content(ng-show="layoutCtrl.markdown")
-		uib-tabset(active="activeJustified" justified="true")
-			uib-tab(index="0" heading="Layout")
-				br
-				.document__content__html(ng-bind-html="layoutCtrl.body")
+				a.navbar-brand(href="/") Catality
 
-			uib-tab(index="1" heading="Markdown")
-				br
-				pre.document__content__markdown {{ layoutCtrl.markdown }}
+			#topmenu.navbar-collapse.collapse
+				ul.nav.navbar-nav
+					li #[a(href="https://github.com/b-ff/catality") See on GitHub]
+					li #[a(href="https://github.com/b-ff/catality/issues") Report a bug]
 
-	.document__content(ng-show="!layoutCtrl.markdown")
-		.document__content__html(ng-bind-html="layoutCtrl.body")
+	.container-fluid.header
+		h1.document__title {{ layoutCtrl.title }}
 
-	HR
+	.container-fluid
+		br
+
+		.document__content(ng-show="layoutCtrl.markdown")
+			uib-tabset(active="active")
+				uib-tab(index="0" heading="Layout")
+					br
+					.document__content__html(ng-bind-html="layoutCtrl.body")
+
+				uib-tab(index="1" heading="Markdown")
+					br
+					pre.document__content__markdown {{ layoutCtrl.markdown }}
+
+		.document__content(ng-show="!layoutCtrl.markdown")
+			.document__content__html(ng-bind-html="layoutCtrl.body")
+
+		HR
+
+	nav.navbar.navbar-default.navbar-fixed-bottom
+		.container-fluid.credits
+			.text-center.text-muted
+				| Powered by #[a(href="http://github.com/b-ff/catality") Catality], hosted on #[a(href="https://pages.github.com/") GitHub Pages]
